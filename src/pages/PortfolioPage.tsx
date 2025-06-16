@@ -1,18 +1,29 @@
-
 import React, { useState, useEffect } from 'react';
 import { PortfolioItem } from '../types';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 
+// STAP 1: Importeer alle afbeeldingen voor het portfolio
+import zomerboostImg from '../assets/zomerboost-2025.jpg';
+import ugcCampagneImg from '../assets/Influencer_Marketing.jpg';
+import brandIdentityImg from '../assets/brand-identity.jpg';
+import foodieFotoshootImg from '../assets/case-study-koffiehoek.jpg';
+import techtalkCommunityImg from '../assets/techtalk-community.jpg'; // Aangepast naar de bestandsnaam die we kennen
+import onlineGroeiImg from '../assets/case-study-ecommerce.jpg';
+import techPlatformImg from '../assets/casestudy-webdesign.jpg';
+import nonProfitImg from '../assets/ugc-campagne2.jpg';
+
+
+// STAP 2: Vervang de statische links door de geïmporteerde variabelen
 const initialPortfolioItems: PortfolioItem[] = [
-  { id: 'zomerboost-2025', title: 'ZomerBoost 2025', category: 'Advertenties', imageUrl: '/assets/zomerboost-2025.jpg', description: 'Explosieve groei in online verkopen door een gerichte zomer campagne.' },
-  { id: 'ugc-campagne', title: 'Authentieke UGC Campagne', category: 'Creatie', imageUrl: '/assets/jij-bent-onze-ambassadeur.jpg', description: 'Verhoogde merkbetrokkenheid met door gebruikers gegenereerde content.' },
-  { id: 'brand-identity-launch', title: 'Brand Identity Lancering', category: 'Strategie', imageUrl: '/assets/brand-identity-creatie.jpg', description: 'Succesvolle social media introductie van een vernieuwde merkidentiteit.' },
-  { id: 'foodie-fotoshoot', title: 'Foodie Fotoshoot & Content', category: 'Creatie', imageUrl: '/assets/instagram-coffee.jpg', description: 'Smakelijke content die de eetlust opwekt en reserveringen stimuleert.' },
-  { id: 'techtalk-community-groei', title: 'TechTalk Community Groei', category: 'Beheer', imageUrl: '/assets/techtalk-community-management.jpg', description: 'Exponentiële groei van een online tech community door strategisch beheer.' },
-  { id: 'online-groei-strategie', title: 'Online Groei Strategie', category: 'Strategie', imageUrl: '/assets/5-stappen-online-groei.jpg', description: 'Visuele weergave van een 5-stappenplan voor online groei.' },
-  { id: 'tech-platform-showcase', title: 'Tech Platform Showcase', category: 'Strategie', imageUrl: '/assets/case-study-webdesign.jpg', description: 'Presentatie van een geavanceerd digitaal webplatform.' },
-  { id: 'non-profit-awareness', title: 'Non-Profit Awareness Drive', category: 'Beheer', imageUrl: '/assets/phone-social-explosion.jpg', description: 'Vergrote zichtbaarheid en steun voor een goed doel.' },
+  { id: 'zomerboost-2025', title: 'ZomerBoost 2025', category: 'Advertenties', imageUrl: zomerboostImg, description: 'Explosieve groei in online verkopen door een gerichte zomer campagne.' },
+  { id: 'ugc-campagne', title: 'Authentieke UGC Campagne', category: 'Creatie', imageUrl: ugcCampagneImg, description: 'Verhoogde merkbetrokkenheid met door gebruikers gegenereerde content.' },
+  { id: 'brand-identity-launch', title: 'Brand Identity Lancering', category: 'Strategie', imageUrl: brandIdentityImg, description: 'Succesvolle social media introductie van een vernieuwde merkidentiteit.' },
+  { id: 'foodie-fotoshoot', title: 'Foodie Fotoshoot & Content', category: 'Creatie', imageUrl: foodieFotoshootImg, description: 'Smakelijke content die de eetlust opwekt en reserveringen stimuleert.' },
+  { id: 'techtalk-community-groei', title: 'TechTalk Community Groei', category: 'Beheer', imageUrl: techtalkCommunityImg, description: 'ExponentiÃ«le groei van een online tech community door strategisch beheer.' },
+  { id: 'online-groei-strategie', title: 'Online Groei Strategie', category: 'Strategie', imageUrl: onlineGroeiImg, description: 'Visuele weergave van een 5-stappenplan voor online groei.' },
+  { id: 'tech-platform-showcase', title: 'Tech Platform Showcase', category: 'Strategie', imageUrl: techPlatformImg, description: 'Presentatie van een geavanceerd digitaal webplatform.' },
+  { id: 'non-profit-awareness', title: 'Non-Profit Awareness Drive', category: 'Beheer', imageUrl: nonProfitImg, description: 'Vergrote zichtbaarheid en steun voor een goed doel.' },
 ];
 
 const categories = ['Alles', 'Beheer', 'Advertenties', 'Creatie', 'Strategie'];
@@ -29,7 +40,8 @@ const PortfolioPage: React.FC = () => {
       setFilteredItems(initialPortfolioItems.filter(item => item.category === activeFilter));
     }
   }, [activeFilter]);
-
+  
+  // Omdat we de geïmporteerde afbeelding gebruiken, werkt de lightbox nu ook automatisch correct
   const openLightbox = (imageUrl: string) => setSelectedImage(imageUrl);
   const closeLightbox = () => setSelectedImage(null);
 
@@ -39,7 +51,7 @@ const PortfolioPage: React.FC = () => {
         <header className="text-center mb-12 md:mb-16" data-aos="fade-up">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Ons Betoverende <span className="gradient-text">Portfolio</span></h1>
           <p className="text-lg md:text-xl max-w-2xl mx-auto text-[#E0D9F7]/80">
-            Duik in een wereld van succesverhalen en ontdek de magie die we voor onze klanten hebben gecreëerd.
+            Duik in een wereld van succesverhalen en ontdek de magie die we voor onze klanten hebben gecreÃ«erd.
           </p>
         </header>
 

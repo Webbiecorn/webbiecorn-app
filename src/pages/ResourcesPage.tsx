@@ -1,34 +1,41 @@
-
 import React, { useState } from 'react';
 import { Resource } from '../types';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import Button from '../components/Button';
 
+// STAP 1: Importeer de afbeeldingen voor de resources
+import checklistImg from '../assets/strategie-workshop.jpg';
+import contentGuideImg from '../assets/content-creatie.jpg';
+import tiktokEbookImg from '../assets/techtalk-community.jpg'; // Aangepast naar de bestandsnaam die we kennen
+import influencerTemplateImg from '../assets/ugc-campagne.jpg';
+
+
+// STAP 2: Vervang de statische links door de geïmporteerde variabelen
 const resourcesData: Resource[] = [
   {
     id: 'social-media-checklist-2024',
     title: 'De Ultieme Social Media Checklist 2024',
     description: 'Een complete checklist om ervoor te zorgen dat uw social media strategie op alle fronten scoort. Van profieloptimalisatie tot contentplanning.',
-    imageUrl: '/assets/5-stappen-online-groei.jpg',
+    imageUrl: checklistImg,
   },
   {
     id: 'content-creation-guide',
     title: 'Gids voor Betoverende Content Creatie',
-    description: 'Praktische tips en inspiratie voor het creëren van content die uw doelgroep boeit en engageert. Inclusief tools en technieken.',
-    imageUrl: '/assets/content-creatie.jpg',
+    description: 'Praktische tips en inspiratie voor het creÃ«ren van content die uw doelgroep boeit en engageert. Inclusief tools en technieken.',
+    imageUrl: contentGuideImg,
   },
   {
     id: 'tiktok-marketing-ebook',
     title: 'eBook: TikTok Marketing voor Beginners',
-    description: 'Een uitgebreide gids om succesvol te starten met TikTok marketing. Van het begrijpen van het algoritme tot het creëren van virale content.',
-    imageUrl: '/assets/techtalk-community-management.jpg',
+    description: 'Een uitgebreide gids om succesvol te starten met TikTok marketing. Van het begrijpen van het algoritme tot het creÃ«ren van virale content.',
+    imageUrl: tiktokEbookImg,
   },
   {
     id: 'influencer-collaboration-template',
     title: 'Template: Influencer Samenwerkingsovereenkomst',
     description: 'Een handig template voor het opstellen van duidelijke afspraken met influencers. Bespaar tijd en voorkom misverstanden.',
-    imageUrl: '/assets/jij-bent-onze-ambassadeur.jpg',
+    imageUrl: influencerTemplateImg,
   },
 ];
 

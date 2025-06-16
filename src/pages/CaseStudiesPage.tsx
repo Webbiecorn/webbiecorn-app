@@ -1,9 +1,13 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CaseStudy } from '../types';
 import Card from '../components/Card';
 import Button from '../components/Button';
+
+// STAP 1: Importeer de lokale afbeeldingen
+import koffiehoekImage from "../assets/case-study-koffiehoek.jpg";
+import b2bLeadgenImage from '../assets/casestudy-webdesign.jpg';
+
 
 const caseStudiesData: CaseStudy[] = [
   {
@@ -11,7 +15,7 @@ const caseStudiesData: CaseStudy[] = [
     title: 'E-commerce Fashion Boost',
     clientName: 'ModeMaven Boutique',
     summary: 'Verdubbeling van online omzet in 6 maanden door een gerichte social media en influencer strategie.',
-    imageUrl: 'https://picsum.photos/seed/case-study-modemaven-new/600/400', // Kept placeholder as no specific new image fits best
+    imageUrl: 'https://picsum.photos/seed/case-study-modemaven-new/600/400', // Externe URL, OK!
     challenge: 'Stagnerende online verkopen en lage merkbekendheid ondanks een kwaliteitsproduct.',
     approach: 'Combinatie van betaalde advertenties op Instagram & Pinterest, samenwerking met micro-influencers, en UGC campagnes.',
     results: [
@@ -26,7 +30,8 @@ const caseStudiesData: CaseStudy[] = [
     title: 'Lokale Koffiehoek Community Groei',
     clientName: 'De Gezellige Koffiehoek',
     summary: 'Opbouw van een loyale lokale community en significante toename in winkelbezoek door hyperlokale content en engagement.',
-    imageUrl: '/assets/instagram-coffee.jpg',
+    // STAP 2: Gebruik de geïmporteerde variabele
+    imageUrl: koffiehoekImage,
     challenge: 'Beperkte naamsbekendheid buiten de directe omgeving en lage klantloyaliteit.',
     approach: 'Focus op Instagram & Facebook met lokale evenementpromotie, klantverhalen, en interactieve content (polls, Q&A\'s).',
     results: [
@@ -41,7 +46,8 @@ const caseStudiesData: CaseStudy[] = [
     title: 'B2B Leadgeneratie voor Tech SaaS',
     clientName: 'Innovatech Solutions',
     summary: 'Genereren van hoogwaardige B2B leads via LinkedIn, resulterend in een aanzienlijke pijplijngroei.',
-    imageUrl: '/assets/case-study-webdesign.jpg',
+    // STAP 3: Gebruik de geïmporteerde variabele
+    imageUrl: b2bLeadgenImage,
     challenge: 'Moeite met het bereiken van de juiste decision-makers en het genereren van gekwalificeerde leads.',
     approach: 'Gerichte LinkedIn advertentiecampagnes, content marketing (whitepapers, webinars), en lead nurturing via e-mail automation.',
     results: [
@@ -82,7 +88,7 @@ const CaseStudiesPage: React.FC = () => {
                 <p className="text-sm text-[#E0D9F7]/80 mb-4 line-clamp-3 flex-grow">{study.summary}</p>
                 <div className="mt-auto">
                     <Link to={`/case-studies/${study.id}`} className="font-semibold text-[#F472B6] hover:underline self-start">
-                        Lees Case Study →
+                        Lees Case Study â†’
                     </Link>
                 </div>
               </div>

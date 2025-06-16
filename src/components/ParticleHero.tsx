@@ -1,6 +1,9 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom'; // Import Link at the top
+import { Link } from 'react-router-dom';
+// STAP 1: Importeer de hero afbeelding
+import heroImage from '../assets/hero-afbeelding.png';
+
 
 interface Particle {
   x: number;
@@ -25,20 +28,19 @@ const ParticleHero: React.FC = () => {
   const animationFrameIdRef = useRef<number | null>(null);
 
   const createParticle = useCallback((canvasWidth: number, canvasHeight: number) => {
-    const size = Math.random() * 3 + 1; // Particle size 1px to 4px
-    // Emit from center area, or where image was
-    const emitX = canvasWidth * (0.5 + (Math.random() - 0.5) * 0.4); // Emit from center 40% width
-    const emitY = canvasHeight * (0.5 + (Math.random() - 0.5) * 0.2); // Emit from center 20% height
+    const size = Math.random() * 3 + 1;
+    const emitX = canvasWidth * (0.5 + (Math.random() - 0.5) * 0.4);
+    const emitY = canvasHeight * (0.5 + (Math.random() - 0.5) * 0.2);
     
     return {
       x: emitX,
       y: emitY,
       size: size,
-      speedX: (Math.random() - 0.5) * 1.5, // Slower horizontal speed
-      speedY: -(Math.random() * 1.5 + 0.5), // Upwards movement
+      speedX: (Math.random() - 0.5) * 1.5,
+      speedY: -(Math.random() * 1.5 + 0.5),
       color: particleColors[Math.floor(Math.random() * particleColors.length)],
-      opacity: Math.random() * 0.5 + 0.5, // Initial opacity
-      life: Math.random() * 120 + 80, // 80 to 200 frames life
+      opacity: Math.random() * 0.5 + 0.5,
+      life: Math.random() * 120 + 80,
       currentLife: 0,
     };
   }, []);
@@ -51,30 +53,26 @@ const ParticleHero: React.FC = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     particlesRef.current.forEach((particle, index) => {
-      // Update particle
       particle.x += particle.speedX;
       particle.y += particle.speedY;
-      particle.opacity -= (1 / particle.life) * 0.7; // Fade out based on life
+      particle.opacity -= (1 / particle.life) * 0.7;
       particle.currentLife++;
 
-      // Remove dead particles
       if (particle.opacity <= 0 || particle.currentLife >= particle.life) {
         particlesRef.current.splice(index, 1);
         return;
       }
 
-      // Draw particle
       ctx.beginPath();
       ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2, false);
       ctx.fillStyle = `rgba(${hexToRgb(particle.color)}, ${particle.opacity})`;
       ctx.fill();
     });
 
-    // Add new particles based on image opacity (more particles as image fades)
-    const numNewParticles = Math.floor((1 - imageOpacity) * 2); // Max 2 new particles per frame when fully faded
-    if (particlesRef.current.length < 150 && imageOpacity < 0.95 && canvas.width > 0 && canvas.height > 0) { // Max 150 particles & ensure canvas is sized
+    const numNewParticles = Math.floor((1 - imageOpacity) * 2);
+    if (particlesRef.current.length < 150 && imageOpacity < 0.95 && canvas.width > 0 && canvas.height > 0) {
       for (let i = 0; i < numNewParticles; i++) {
-        if (Math.random() < 0.5) { // Add particles intermittently
+        if (Math.random() < 0.5) {
              particlesRef.current.push(createParticle(canvas.width, canvas.height));
         }
       }
@@ -88,7 +86,6 @@ const ParticleHero: React.FC = () => {
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    // Resize canvas to container
     const resizeObserver = new ResizeObserver(entries => {
       for (let entry of entries) {
         canvas.width = entry.contentRect.width;
@@ -103,11 +100,11 @@ const ParticleHero: React.FC = () => {
     animationFrameIdRef.current = requestAnimationFrame(drawParticles);
 
     return () => {
-      if (animationFrameIdRef.current !== null) { // Check against null
+      if (animationFrameIdRef.current !== null) {
         cancelAnimationFrame(animationFrameIdRef.current);
       }
       resizeObserver.disconnect();
-      particlesRef.current = []; // Clear particles on unmount
+      particlesRef.current = [];
     };
   }, [drawParticles]);
 
@@ -118,7 +115,6 @@ const ParticleHero: React.FC = () => {
       const heroSectionHeight = containerRef.current.offsetHeight;
       const scrollPosition = window.scrollY;
       
-      // Start fading when top of hero is scrolled past, fully faded by 2/3 of hero height
       const fadeStart = 0; 
       const fadeEnd = heroSectionHeight * 0.66;
 
@@ -130,7 +126,7 @@ const ParticleHero: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -145,12 +141,13 @@ const ParticleHero: React.FC = () => {
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-10" />
       <img
         ref={imageRef}
-        src="/assets/webbiecorn-hero.png" 
+        // STAP 2: Gebruik de geïmporteerde variabele
+        src={heroImage} 
         alt="Webbiecorn Eenhoorn op Laptop met grafiek"
         className="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ease-out z-20"
         style={{ opacity: imageOpacity }}
       />
-      <div className="relative z-30 p-4" style={{ opacity: Math.min(1, imageOpacity + 0.3)}}> {/* Text fades slightly slower */}
+      <div className="relative z-30 p-4" style={{ opacity: Math.min(1, imageOpacity + 0.3)}}>
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
           <span className="block text-[#E0D9F7]">Social Media</span>
           <span className="block gradient-text mt-1 md:mt-2">Magie die Werkt.</span>

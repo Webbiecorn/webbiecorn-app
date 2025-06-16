@@ -8,22 +8,25 @@ import { serviceImages } from '../assets/images';
 // De data bevat nu geen directe links naar afbeeldingen meer
 const servicesData: Service[] = [
   {
-    id: 'social-media-beheer',
-    title: 'Strategisch Social Media Beheer',
-    description: 'Wij nemen het roer over van uw social media kanalen. Van contentplanning en creatie tot community management en rapportage, wij zorgen voor een consistente en engagerende aanwezigheid die uw merk versterkt.',
-    longDescription: 'Ons team van social media magiërs ontwikkelt een strategie op maat, creëert boeiende content die resoneert met uw doelgroep, en beheert uw communities proactief. We monitoren prestaties, analyseren data en sturen bij waar nodig om maximale resultaten te behalen. Focus u op uw core business, terwijl wij uw online aanwezigheid transformeren.',
+      id: 'social-media-beheer',
+      title: 'Strategisch Social Media Beheer',
+      description: 'Wij nemen het roer over van uw social media kanalen. Van contentplanning en creatie tot community management en rapportage, wij zorgen voor een consistente en engagerende aanwezigheid die uw merk versterkt.',
+      longDescription: 'Ons team van social media magiërs ontwikkelt een strategie op maat, creëert boeiende content die resoneert met uw doelgroep, en beheert uw communities proactief. We monitoren prestaties, analyseren data en sturen bij waar nodig om maximale resultaten te behalen. Focus u op uw core business, terwijl wij uw online aanwezigheid transformeren.',
+      image: ''
   },
   {
-    id: 'advertentie-campagnes',
-    title: 'Resultaatgerichte Advertentie Campagnes',
-    description: 'Maximaliseer uw bereik en conversies met datagestuurde advertentiecampagnes op platforms zoals Facebook, Instagram, LinkedIn en TikTok. Wij zorgen voor de magie achter de targeting en optimalisatie.',
-    longDescription: 'Webbiecorn ontwerpt, implementeert en optimaliseert advertentiecampagnes die écht werken. We gebruiken geavanceerde targetingtechnieken, A/B-testen advertentiecreatives en optimaliseren budgetten continu voor de hoogste ROI. Of het nu gaat om merkbekendheid, leadgeneratie of directe verkoop, wij zetten uw advertentiebudget om in meetbaar succes.',
+      id: 'advertentie-campagnes',
+      title: 'Resultaatgerichte Advertentie Campagnes',
+      description: 'Maximaliseer uw bereik en conversies met datagestuurde advertentiecampagnes op platforms zoals Facebook, Instagram, LinkedIn en TikTok. Wij zorgen voor de magie achter de targeting en optimalisatie.',
+      longDescription: 'Webbiecorn ontwerpt, implementeert en optimaliseert advertentiecampagnes die écht werken. We gebruiken geavanceerde targetingtechnieken, A/B-testen advertentiecreatives en optimaliseren budgetten continu voor de hoogste ROI. Of het nu gaat om merkbekendheid, leadgeneratie of directe verkoop, wij zetten uw advertentiebudget om in meetbaar succes.',
+      image: ''
   },
   {
-    id: 'content-creatie',
-    title: 'Betoverende Content Creatie',
-    description: 'Van oogstrelende visuals en pakkende video’s tot overtuigende copy. Ons creatieve team produceert content die niet alleen mooi is, maar ook de juiste snaar raakt bij uw doelgroep.',
-    longDescription: 'Content is koning, en bij Webbiecorn creëren we koninklijke content. We ontwikkelen een contentstrategie die aansluit bij uw merkidentiteit en doelstellingen. Ons team van copywriters, designers en videografen produceert unieke, hoogwaardige content die opvalt, engageert en inspireert. Laat ons uw merkverhaal vertellen op een manier die blijft hangen.',
+      id: 'content-creatie',
+      title: 'Betoverende Content Creatie',
+      description: 'Van oogstrelende visuals en pakkende video’s tot overtuigende copy. Ons creatieve team produceert content die niet alleen mooi is, maar ook de juiste snaar raakt bij uw doelgroep.',
+      longDescription: 'Content is koning, en bij Webbiecorn creëren we koninklijke content. We ontwikkelen een contentstrategie die aansluit bij uw merkidentiteit en doelstellingen. Ons team van copywriters, designers en videografen produceert unieke, hoogwaardige content die opvalt, engageert en inspireert. Laat ons uw merkverhaal vertellen op een manier die blijft hangen.',
+      image: ''
   },
 ];
 
@@ -47,7 +50,6 @@ const DienstenPage: React.FC = () => {
             >
               <div className="md:w-1/2">
                 <img
-                  // STAP 2: Gebruik het serviceImages object om de juiste afbeelding op te zoeken
                   src={serviceImages[service.id]}
                   alt={service.title}
                   className="rounded-xl shadow-2xl w-full h-auto object-cover aspect-video glassmorphism p-1"
@@ -64,8 +66,20 @@ const DienstenPage: React.FC = () => {
             </section>
           ))}
         </div>
+        
          <section className="mt-24 text-center" data-aos="fade-up">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Klaar om de <span className="gradient-text">Volgende Stap</span> te Zetten?</h2>
             <p className="text-lg max-w-xl mx-auto mb-8 text-[#E0D9F7]/80">
                 Elk merk heeft een uniek verhaal. Laten we samen ontdekken hoe we uw social media magie kunnen ontketenen.
             </p>
+            <Button asLink to="/contact" size="lg" variant="primary">Vraag een Offerte Aan</Button>
+            <Link to="/portfolio" className="block mt-6 text-[#A78BFA] hover:text-[#F472B6] font-medium">
+                Of bekijk eerst ons werk →
+            </Link>
+        </section> {/* <-- HIER IS DE ONTBREKENDE TAG TOEGEVOEGD! */}
+      </div>
+    </div>
+  );
+};
+
+export default DienstenPage;

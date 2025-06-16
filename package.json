@@ -9,14 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "aos": "^2.3.4",
+    "chart.js": "^4.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.2",
-    "chart.js": "^4.5.0",
-    "aos": "^2.3.4"
+    "react-router-dom": "^7.6.2"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/react": "^19.1.8",
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
   }

@@ -1,40 +1,78 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Service, PortfolioItem } from '../types';
-import ParticleHero from '../components/ParticleHero';
+// We hebben de ParticleHero niet meer nodig, maar wel de afbeelding zelf
+import heroAfbeelding from '../assets/hero-afbeelding.png'; 
 import Card from '../components/Card';
 import FlipCard from '../components/FlipCard';
 import Button from '../components/Button';
 
-// Placeholder icons - replace with actual SVGs or an icon library
+// Imports voor de andere afbeeldingen op de pagina
+import socialBeheerImg from '../assets/social-media-beheer.jpg';
+import advertentieImg from '../assets/advertentie-campagnes.jpg';
+import contentCreatieImg from '../assets/content-creatie.jpg';
+import zomerboostImg from '../assets/zomerboost-2025.jpg';
+import brandIdImg from '../assets/brand-identity.jpg';
+import techtalkImg from '../assets/techtalk-community.jpg';
+
+// Placeholder icons
 const MagicWandIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 gradient-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V9.75a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25v8.25A2.25 2.25 0 006 20.25zM12 12V3.75" /></svg>;
 const TargetIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 gradient-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.25c-5.52 0-10.24.88-13.48 2.25L9.63 18l5.96-3.63z" /></svg>;
 const BrushIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 gradient-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>;
 
-
 const services: Service[] = [
-  { id: 'beheer', title: 'Social Media Beheer', description: 'Strategisch beheer van uw kanalen voor maximale impact.', image: '/assets/social-media-beheer.jpg', icon: <MagicWandIcon /> },
-  { id: 'advertenties', title: 'Advertentie Campagnes', description: 'Doelgerichte campagnes die converteren en engageren.', image: '/assets/advertentie-campagnes.jpg', icon: <TargetIcon /> },
-  { id: 'creatie', title: 'Content Creatie', description: 'Betoverende content die uw merkverhaal vertelt.', image: '/assets/content-creatie.jpg', icon: <BrushIcon /> },
+  { id: 'beheer', title: 'Social Media Beheer', description: 'Strategisch beheer van uw kanalen voor maximale impact.', image: socialBeheerImg, icon: <MagicWandIcon /> },
+  { id: 'advertenties', title: 'Advertentie Campagnes', description: 'Doelgerichte campagnes die converteren en engageren.', image: advertentieImg, icon: <TargetIcon /> },
+  { id: 'creatie', title: 'Content Creatie', description: 'Betoverende content die uw merkverhaal vertelt.', image: contentCreatieImg, icon: <BrushIcon /> },
 ];
 
 const processSteps = [
-  { id: 1, title: 'De Vonk', description: 'We duiken diep in uw merk, doelen en doelgroep om de perfecte strategie te ontsteken.', icon: '✨' },
-  { id: 2, title: 'Het Brouwsel', description: 'Creativiteit en data worden gemengd tot een krachtige social media mix op maat.', icon: '🧪' },
-  { id: 3, title: 'De Betovering', description: 'We lanceren, monitoren en optimaliseren voor magische, meetbare resultaten.', icon: '🌟' },
+    { id: 1, title: 'De Vonk', description: 'We duiken diep in uw merk, doelen en doelgroep om de perfecte strategie te ontsteken.', icon: '✨' },
+    { id: 2, title: 'Het Brouwsel', description: 'Creativiteit en data worden gemengd tot een krachtige social media mix op maat.', icon: '🧪' },
+    { id: 3, title: 'De Betovering', description: 'We lanceren, monitoren en optimaliseren voor magische, meetbare resultaten.', icon: '🌟' },
 ];
 
 const portfolioPreview: PortfolioItem[] = [
-  { id: 'zomerboost', title: 'ZomerBoost 2025 Campagne', category: 'Advertenties', imageUrl: '/assets/zomerboost-2025.jpg', description: 'Een spetterende zomer campagne die de verkoop een boost gaf.' },
-  { id: 'brand-id', title: 'Nieuwe Brand Identity Lancering', category: 'Strategie', imageUrl: '/assets/brand-identity-creatie.jpg', description: 'Volledige social media strategie voor een frisse merkidentiteit.' },
-  { id: 'techtalk', title: 'TechTalk Community Groei', category: 'Beheer', imageUrl: '/assets/techtalk-community-management.jpg', description: 'Organische groei en engagement voor een tech community.' },
+  { id: 'zomerboost', title: 'ZomerBoost 2025 Campagne', category: 'Advertenties', imageUrl: zomerboostImg, description: 'Een spetterende zomer campagne die de verkoop een boost gaf.' },
+  { id: 'brand-id', title: 'Nieuwe Brand Identity Lancering', category: 'Strategie', imageUrl: brandIdImg, description: 'Volledige social media strategie voor een frisse merkidentiteit.' },
+  { id: 'techtalk', title: 'TechTalk Community Groei', category: 'Beheer', imageUrl: techtalkImg, description: 'Organische groei en engagement voor een tech community.' },
 ];
 
 const HomePage: React.FC = () => {
   return (
     <div className="space-y-24 md:space-y-32 pb-16">
-      <ParticleHero />
+      
+      {/* ===== NIEUWE HERO SECTIE ===== */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          {/* Linker kolom (Tekst) */}
+          <div className="md:w-1/2 text-center md:text-left">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+              <span className="block text-[#E0D9F7]">SOCIAL MEDIA</span>
+              <span className="block gradient-text mt-1 md:mt-2">MAGIE DIE WERKT.</span>
+            </h1>
+            <p className="mt-6 text-lg md:text-xl max-w-xl mx-auto md:mx-0 text-[#E0D9F7]/90">
+              Van strategie tot storytelling, wij maken jouw merk onweerstaanbaar. Maak van volgers fans met unicorn power.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+              <Button asLink to="/diensten" variant="primary" size="lg">
+                Ontdek Jouw Potentie
+              </Button>
+              <Button asLink to="/portfolio" variant="outline" size="lg">
+                Bekijk Voorbeelden
+              </Button>
+            </div>
+          </div>
+          {/* Rechter kolom (Afbeelding) */}
+          <div className="md:w-1/2">
+            <img 
+              src={heroAfbeelding} 
+              alt="Webbiecorn eenhoorn met laptop"
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Dienstenoverzicht */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
