@@ -1,14 +1,35 @@
-# Run and deploy your AI Studio app
+# Webbiecorn - Social Media Magie
 
-This contains everything you need to run your app locally.
+Een complete, responsive, meertalige website voor het fictieve Nederlandse social media marketingbureau Webbiecorn.
 
-## Run Locally
+## 🚀 Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+
+2. Run the app:
+   ```bash
+   npm run dev
+   ```
+
+3. Open your browser and navigate to `http://localhost:5173`
+
+## 🛠️ Build
+
+To build the application for production:
+
+```bash
+npm run build
+```
+
+## 🤝 Contributing
+
+Wil je bijdragen aan dit project? Geweldig! Lees de [CONTRIBUTING.md](CONTRIBUTING.md) voor gedetailleerde instructies over hoe je een pull request kunt maken.
+
+## 📝 License
+
+Dit is een demo project voor Webbiecorn.
