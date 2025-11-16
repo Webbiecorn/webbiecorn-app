@@ -1,117 +1,108 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { PortfolioItem } from '../types';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
+import { caseStudies } from '../data/siteContent';
 
-// STAP 1: Importeer alle afbeeldingen voor het portfolio
 import zomerboostImg from '../assets/zomerboost-2025.jpg';
 import ugcCampagneImg from '../assets/Influencer_Marketing.jpg';
 import brandIdentityImg from '../assets/brand-identity.jpg';
 import foodieFotoshootImg from '../assets/case-study-koffiehoek.jpg';
-import techtalkCommunityImg from '../assets/techtalk-community.jpg'; // Aangepast naar de bestandsnaam die we kennen
+import techtalkCommunityImg from '../assets/techtalk-community.jpg';
 import onlineGroeiImg from '../assets/case-study-ecommerce.jpg';
 import techPlatformImg from '../assets/casestudy-webdesign.jpg';
 import nonProfitImg from '../assets/ugc-campagne2.jpg';
 
-
-// STAP 2: Vervang de statische links door de geïmporteerde variabelen
 const initialPortfolioItems: PortfolioItem[] = [
-  { id: 'zomerboost-2025', title: 'ZomerBoost 2025', category: 'Advertenties', imageUrl: zomerboostImg, description: 'Explosieve groei in online verkopen door een gerichte zomer campagne.' },
-  { id: 'ugc-campagne', title: 'Authentieke UGC Campagne', category: 'Creatie', imageUrl: ugcCampagneImg, description: 'Verhoogde merkbetrokkenheid met door gebruikers gegenereerde content.' },
-  { id: 'brand-identity-launch', title: 'Brand Identity Lancering', category: 'Strategie', imageUrl: brandIdentityImg, description: 'Succesvolle social media introductie van een vernieuwde merkidentiteit.' },
-  { id: 'foodie-fotoshoot', title: 'Foodie Fotoshoot & Content', category: 'Creatie', imageUrl: foodieFotoshootImg, description: 'Smakelijke content die de eetlust opwekt en reserveringen stimuleert.' },
-  { id: 'techtalk-community-groei', title: 'TechTalk Community Groei', category: 'Beheer', imageUrl: techtalkCommunityImg, description: 'ExponentiÃ«le groei van een online tech community door strategisch beheer.' },
-  { id: 'online-groei-strategie', title: 'Online Groei Strategie', category: 'Strategie', imageUrl: onlineGroeiImg, description: 'Visuele weergave van een 5-stappenplan voor online groei.' },
-  { id: 'tech-platform-showcase', title: 'Tech Platform Showcase', category: 'Strategie', imageUrl: techPlatformImg, description: 'Presentatie van een geavanceerd digitaal webplatform.' },
-  { id: 'non-profit-awareness', title: 'Non-Profit Awareness Drive', category: 'Beheer', imageUrl: nonProfitImg, description: 'Vergrote zichtbaarheid en steun voor een goed doel.' },
+  { id: 'zomerboost-2025', title: 'ZomerBoost 2025', category: 'Advertenties', imageUrl: zomerboostImg, description: 'Retail activatie met lokale creators en always-on ads.' },
+  { id: 'ugc-campagne', title: 'UGC programma', category: 'Creatie', imageUrl: ugcCampagneImg, description: 'Creator kits en rights management voor scale-ups.' },
+  { id: 'brand-identity', title: 'Brand relaunch', category: 'Strategie', imageUrl: brandIdentityImg, description: 'Nieuwe tone-of-voice en visuele identiteit voor een fintech.' },
+  { id: 'foodie-shoot', title: 'Hospitality content', category: 'Creatie', imageUrl: foodieFotoshootImg, description: 'Reels en fotografie voor horeca keten.' },
+  { id: 'community-growth', title: 'Community ops', category: 'Beheer', imageUrl: techtalkCommunityImg, description: 'Slack en LinkedIn community management.' },
+  { id: 'ecom-scale', title: 'E-commerce groei', category: 'Strategie', imageUrl: onlineGroeiImg, description: 'Dashboards en growth loops voor D2C brand.' },
+  { id: 'platform-launch', title: 'Platform launch', category: 'Strategie', imageUrl: techPlatformImg, description: 'Product storytelling en thought leadership.' },
+  { id: 'impact-drive', title: 'Impact campagne', category: 'Beheer', imageUrl: nonProfitImg, description: 'Omnichannel awareness voor NGO.' },
 ];
-
-const categories = ['Alles', 'Beheer', 'Advertenties', 'Creatie', 'Strategie'];
 
 const PortfolioPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('Alles');
-  const [filteredItems, setFilteredItems] = useState<PortfolioItem[]>(initialPortfolioItems);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (activeFilter === 'Alles') {
-      setFilteredItems(initialPortfolioItems);
-    } else {
-      setFilteredItems(initialPortfolioItems.filter(item => item.category === activeFilter));
-    }
+  const categories = useMemo(
+    () => ['Alles', ...new Set(initialPortfolioItems.map((item) => item.category))],
+    []
+  );
+
+  const filteredItems = useMemo(() => {
+    if (activeFilter === 'Alles') return initialPortfolioItems;
+    return initialPortfolioItems.filter((item) => item.category === activeFilter);
   }, [activeFilter]);
-  
-  // Omdat we de geïmporteerde afbeelding gebruiken, werkt de lightbox nu ook automatisch correct
-  const openLightbox = (imageUrl: string) => setSelectedImage(imageUrl);
-  const closeLightbox = () => setSelectedImage(null);
 
   return (
-    <div className="py-16 md:py-24 bg-[#0F052B]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="text-center mb-12 md:mb-16" data-aos="fade-up">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Ons Betoverende <span className="gradient-text">Portfolio</span></h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto text-[#E0D9F7]/80">
-            Duik in een wereld van succesverhalen en ontdek de magie die we voor onze klanten hebben gecreÃ«erd.
-          </p>
+    <div className="py-16 md:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <header className="text-center space-y-4 max-w-3xl mx-auto">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/50">Werk</p>
+          <h1 className="text-4xl md:text-5xl font-semibold text-white">Een kijkje in onze labs</h1>
+          <p className="text-white/70">Cases waarin content, community en performance samenkomen.</p>
         </header>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-12" data-aos="fade-up">
-          {categories.map(category => (
+        <div className="flex flex-wrap justify-center gap-3">
+          {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveFilter(category)}
-              className={`px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base font-medium rounded-full transition-all duration-300
-                ${activeFilter === category 
-                  ? 'bg-gradient-to-r from-[#F472B6] via-[#A78BFA] to-[#60A5FA] text-white shadow-lg' 
-                  : 'bg-white/10 text-[#E0D9F7] hover:bg-white/20 hover:text-white'}`}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
+                activeFilter === category ? 'bg-white text-[#050014]' : 'bg-white/10 text-white/70 hover:bg-white/20'
+              }`}
             >
               {category}
             </button>
           ))}
         </div>
 
-        {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredItems.map((item, index) => (
-            <Card 
-              key={item.id} 
-              className="overflow-hidden group cursor-pointer" 
-              onClick={() => openLightbox(item.imageUrl)}
-              dataAos="zoom-in-up"
-              dataAosDelay={`${index * 50}`}
-            >
-              <div className="relative aspect-video">
-                <img 
-                    src={item.imageUrl} 
-                    alt={item.title} 
-                    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                />
-                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
-                 </div>
-              </div>
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-white mb-1">{item.title}</h3>
-                <p className="text-sm text-[#A78BFA] font-medium mb-2">{item.category}</p>
-                {item.description && <p className="text-sm text-[#E0D9F7]/80 line-clamp-2">{item.description}</p>}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredItems.map((item) => (
+            <Card key={item.id} className="overflow-hidden p-0 cursor-pointer" onClick={() => setSelectedImage(item.imageUrl)}>
+              <div className="relative aspect-[4/3]">
+                <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/70">{item.category}</p>
+                  <h3 className="text-xl text-white font-semibold">{item.title}</h3>
+                  <p className="text-sm text-white/70">{item.description}</p>
+                </div>
               </div>
             </Card>
           ))}
         </div>
-        {filteredItems.length === 0 && (
-            <p className="text-center text-xl text-[#E0D9F7]/70 col-span-full mt-12">
-                Geen projecten gevonden voor de categorie "{activeFilter}". Probeer een andere filter!
-            </p>
-        )}
+
+        <section className="space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Verdieping</p>
+              <h2 className="text-3xl text-white font-semibold">Uitgelichte case studies</h2>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {caseStudies.map((study) => (
+              <Card key={study.id} className="p-0 overflow-hidden">
+                <img src={study.imageUrl} alt={study.title} className="w-full h-48 object-cover" />
+                <div className="p-6 space-y-2">
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/40">{study.category}</p>
+                  <h3 className="text-xl text-white font-semibold">{study.title}</h3>
+                  <p className="text-white/70 text-sm">{study.summary}</p>
+                  <p className="text-sm text-white/50">Key metric: {study.results[0]?.value}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
       </div>
 
-      {/* Lightbox Modal */}
       {selectedImage && (
-        <Modal isOpen={!!selectedImage} onClose={closeLightbox} title="Project Afbeelding">
-          <img src={selectedImage} alt="Portfolio item" className="w-full h-auto max-h-[70vh] object-contain rounded-lg" />
+        <Modal isOpen={!!selectedImage} onClose={() => setSelectedImage(null)} title="Project visual">
+          <img src={selectedImage} alt="Project" className="w-full h-auto max-h-[70vh] object-contain rounded-xl" />
         </Modal>
       )}
     </div>

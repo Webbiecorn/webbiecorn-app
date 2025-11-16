@@ -1,12 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { NavLinkItem } from '../types';
+import type { NavLinkItem } from '../types';
 
 const navLinks: NavLinkItem[] = [
+  { name: 'Home', path: '/' },
   { name: 'Diensten', path: '/diensten' },
-  { name: 'Portfolio', path: '/portfolio' },
+  { name: 'Cases', path: '/case-studies' },
   { name: 'Prijzen', path: '/prijzen' },
+  { name: 'Resources', path: '/resources' },
   { name: 'Blog', path: '/blog' },
 ];
 
@@ -15,35 +17,42 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
   useEffect(() => {
-    setIsMobileMenuOpen(false); // Close mobile menu on route change
+    setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'bg-[#0F052B]/80 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled || isMobileMenuOpen ? 'bg-[#09031b]/90 backdrop-blur-xl shadow-2xl shadow-black/40' : 'bg-transparent'
+      }`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 md:h-24">
-          <Link to="/" className="text-3xl md:text-4xl font-bold gradient-text">
+          <Link to="/" className="text-3xl md:text-4xl font-bold gradient-text tracking-tight">
             Webbiecorn
           </Link>
-
-          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+          <div className="hidden md:flex flex-col text-xs uppercase tracking-[0.3em] text-white/60">
+            <span>Social Studio</span>
+            <span>Amsterdam</span>
+          </div>
+          <nav className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `text-lg hover:text-[#F472B6] transition-colors duration-300 ${isActive ? 'active-nav-link' : 'text-[#E0D9F7]'}`
+                  `text-sm font-semibold uppercase tracking-wide transition-colors ${
+                    isActive ? 'text-[#F472B6]' : 'text-white/70 hover:text-white'
+                  }`
                 }
               >
                 {link.name}
@@ -51,42 +60,37 @@ const Header: React.FC = () => {
             ))}
             <Link
               to="/contact"
-              className="px-6 py-2.5 text-lg font-semibold text-white rounded-full bg-gradient-to-r from-[#F472B6] via-[#A78BFA] to-[#60A5FA] hover:opacity-90 transition-opacity duration-300"
+              className="px-5 py-2 text-sm font-semibold text-[#0F052B] bg-white rounded-full shadow-lg hover:-translate-y-0.5 transition-transform"
             >
-              Offerte
+              Plan Kennismaking
             </Link>
           </nav>
-
-          <div className="md:hidden">
-            <button
-              onClick={toggleMobileMenu}
-              className="text-[#E0D9F7] focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-              )}
-            </button>
-          </div>
+          <button
+            className="lg:hidden w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            aria-label="Open navigatie"
+          >
+            {isMobileMenuOpen ? (
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h10" />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-[#0F052B]/95 backdrop-blur-xl z-40 pt-20 flex flex-col items-center space-y-6">
+        <div className="lg:hidden fixed inset-0 bg-[#050014]/95 backdrop-blur-2xl flex flex-col items-center justify-center space-y-8 text-2xl font-semibold">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
-              onClick={toggleMobileMenu}
               className={({ isActive }) =>
-                `text-2xl py-2 ${isActive ? 'active-nav-link' : 'text-[#E0D9F7] hover:text-[#F472B6]'}`
+                `${isActive ? 'text-[#F472B6]' : 'text-white'} hover:text-[#A78BFA] transition-colors`
               }
             >
               {link.name}
@@ -94,10 +98,9 @@ const Header: React.FC = () => {
           ))}
           <Link
             to="/contact"
-            onClick={toggleMobileMenu}
-            className="mt-4 px-8 py-3 text-2xl font-semibold text-white rounded-full bg-gradient-to-r from-[#F472B6] via-[#A78BFA] to-[#60A5FA] hover:opacity-90 transition-opacity duration-300"
+            className="px-8 py-3 text-lg font-semibold text-[#050014] bg-white rounded-full"
           >
-            Offerte
+            Plan Kennismaking
           </Link>
         </div>
       )}

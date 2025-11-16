@@ -1,4 +1,6 @@
 
+import type { ReactNode } from 'react';
+
 export interface NavLinkItem {
   name: string;
   path: string;
@@ -9,8 +11,10 @@ export interface Service {
   title: string;
   description: string;
   longDescription?: string;
-  image: string;
-  icon?: React.ReactNode; // For homepage overview
+  image?: string;
+  icon?: ReactNode;
+  deliverables?: string[];
+  outcomes?: string[];
 }
 
 export interface PortfolioItem {
@@ -26,12 +30,26 @@ export interface CaseStudy {
   id: string;
   title: string;
   clientName: string;
+  category?: string;
   summary: string;
   imageUrl: string;
   challenge: string;
   approach: string;
   results: { keyMetric: string; value: string; chartData?: { labels: string[]; data: number[] } }[];
   testimonial?: { text: string; author: string };
+}
+
+export interface Metric {
+  label: string;
+  value: string;
+  detail?: string;
+}
+
+export interface PlaybookStep {
+  id: string;
+  title: string;
+  description: string;
+  result: string;
 }
 
 export interface PricingPlan {
@@ -89,4 +107,11 @@ export interface Resource {
 // SVG Icon Prop Type
 export interface IconProps {
   className?: string;
+}
+
+export interface ContactChannel {
+  label: string;
+  value: string;
+  description: string;
+  href?: string;
 }
