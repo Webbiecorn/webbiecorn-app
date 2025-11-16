@@ -1,82 +1,77 @@
 import React from 'react';
-import { Service } from '../types';
 import Button from '../components/Button';
-import { Link } from 'react-router-dom';
-// STAP 1: Importeer ons nieuwe object met de afbeeldingen
-import { serviceImages } from '../assets/images';
-
-// De data bevat nu geen directe links naar afbeeldingen meer
-const servicesData: Service[] = [
-  {
-      id: 'social-media-beheer',
-      title: 'Strategisch Social Media Beheer',
-      description: 'Wij nemen het roer over van uw social media kanalen. Van contentplanning en creatie tot community management en rapportage, wij zorgen voor een consistente en engagerende aanwezigheid die uw merk versterkt.',
-      longDescription: 'Ons team van social media magiërs ontwikkelt een strategie op maat, creëert boeiende content die resoneert met uw doelgroep, en beheert uw communities proactief. We monitoren prestaties, analyseren data en sturen bij waar nodig om maximale resultaten te behalen. Focus u op uw core business, terwijl wij uw online aanwezigheid transformeren.',
-      image: ''
-  },
-  {
-      id: 'advertentie-campagnes',
-      title: 'Resultaatgerichte Advertentie Campagnes',
-      description: 'Maximaliseer uw bereik en conversies met datagestuurde advertentiecampagnes op platforms zoals Facebook, Instagram, LinkedIn en TikTok. Wij zorgen voor de magie achter de targeting en optimalisatie.',
-      longDescription: 'Webbiecorn ontwerpt, implementeert en optimaliseert advertentiecampagnes die écht werken. We gebruiken geavanceerde targetingtechnieken, A/B-testen advertentiecreatives en optimaliseren budgetten continu voor de hoogste ROI. Of het nu gaat om merkbekendheid, leadgeneratie of directe verkoop, wij zetten uw advertentiebudget om in meetbaar succes.',
-      image: ''
-  },
-  {
-      id: 'content-creatie',
-      title: 'Betoverende Content Creatie',
-      description: 'Van oogstrelende visuals en pakkende video’s tot overtuigende copy. Ons creatieve team produceert content die niet alleen mooi is, maar ook de juiste snaar raakt bij uw doelgroep.',
-      longDescription: 'Content is koning, en bij Webbiecorn creëren we koninklijke content. We ontwikkelen een contentstrategie die aansluit bij uw merkidentiteit en doelstellingen. Ons team van copywriters, designers en videografen produceert unieke, hoogwaardige content die opvalt, engageert en inspireert. Laat ons uw merkverhaal vertellen op een manier die blijft hangen.',
-      image: ''
-  },
-];
+import Card from '../components/Card';
+import { processSteps, serviceShowcase } from '../data/siteContent';
 
 const DienstenPage: React.FC = () => {
   return (
-    <div className="py-16 md:py-24 bg-[#0F052B]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="text-center mb-16 md:mb-20" data-aos="fade-up">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Onze Magische <span className="gradient-text">Diensten</span></h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto text-[#E0D9F7]/80">
-            Ontdek hoe Webbiecorn uw social media kan transformeren met onze gespecialiseerde diensten.
+    <div className="py-16 md:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        <header className="text-center space-y-4 max-w-3xl mx-auto">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/50">Diensten</p>
+          <h1 className="text-4xl md:text-5xl font-semibold text-white">Een squad voor elke groeivraag</h1>
+          <p className="text-lg text-white/70">
+            Kies de bouwstenen die bij uw merk passen. Elk traject start met een sprint en groeit uit tot een geïntegreerd team.
           </p>
         </header>
 
-        <div className="space-y-16 md:space-y-24">
-          {servicesData.map((service, index) => (
-            <section
-              key={service.id}
-              className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 md:gap-12 lg:gap-16`}
-              data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
-            >
-              <div className="md:w-1/2">
-                <img
-                  src={serviceImages[service.id]}
-                  alt={service.title}
-                  className="rounded-xl shadow-2xl w-full h-auto object-cover aspect-video glassmorphism p-1"
-                />
+        <div className="space-y-12">
+          {serviceShowcase.map((service, index) => (
+            <div key={service.id} className="grid lg:grid-cols-2 gap-10 items-center">
+              <div className={`order-2 ${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
+                <Card className="space-y-5" dataAos="fade-up">
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/50">{service.id}</p>
+                  <h2 className="text-3xl font-semibold text-white">{service.title}</h2>
+                  <p className="text-white/80">{service.description}</p>
+                  <p className="text-white/60 text-sm">{service.longDescription}</p>
+                </Card>
               </div>
-              <div className="md:w-1/2">
-                <h2 className="text-3xl lg:text-4xl font-semibold mb-4 gradient-text">{service.title}</h2>
-                <p className="text-lg text-[#E0D9F7]/90 mb-6">{service.description}</p>
-                {service.longDescription && <p className="text-base text-[#E0D9F7]/70 mb-8">{service.longDescription}</p>}
-                <Button asLink to="/contact" variant="primary">
-                  Start Vandaag Nog
-                </Button>
+              <div className={`order-1 ${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Card className="space-y-3" dataAos="fade-up" dataAosDelay="100">
+                    <p className="text-xs uppercase tracking-[0.3em] text-white/50">Deliverables</p>
+                    <ul className="space-y-2 text-sm text-white/80">
+                      {service.deliverables?.map((item) => (
+                        <li key={item}>✺ {item}</li>
+                      ))}
+                    </ul>
+                  </Card>
+                  <Card className="space-y-3" dataAos="fade-up" dataAosDelay="150">
+                    <p className="text-xs uppercase tracking-[0.3em] text-white/50">Impact</p>
+                    <ul className="space-y-2 text-sm text-white/80">
+                      {service.outcomes?.map((item) => (
+                        <li key={item}>➤ {item}</li>
+                      ))}
+                    </ul>
+                  </Card>
+                </div>
               </div>
-            </section>
+            </div>
           ))}
         </div>
-        
-         <section className="mt-24 text-center" data-aos="fade-up">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Klaar om de <span className="gradient-text">Volgende Stap</span> te Zetten?</h2>
-            <p className="text-lg max-w-xl mx-auto mb-8 text-[#E0D9F7]/80">
-                Elk merk heeft een uniek verhaal. Laten we samen ontdekken hoe we uw social media magie kunnen ontketenen.
+
+        <section className="grid md:grid-cols-2 gap-8">
+          <Card className="space-y-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/50">Werkwijze</p>
+            <h3 className="text-2xl font-semibold text-white">Zo werken we samen</h3>
+            <ul className="space-y-4 text-white/70">
+              {processSteps.map((step) => (
+                <li key={step.id}>
+                  <p className="text-white font-semibold">{step.title}</p>
+                  <p className="text-sm">{step.description}</p>
+                </li>
+              ))}
+            </ul>
+          </Card>
+          <Card className="space-y-4" dataAos="fade-up" dataAosDelay="100">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/50">Stap aan boord</p>
+            <h3 className="text-2xl font-semibold text-white">Elke samenwerking start met een sprint</h3>
+            <p className="text-white/70">
+              In zes weken brengen we kansen in kaart, zetten we campagnes live en leggen we dashboards vast. Daarna kiezen we voor verlenging, overdracht of opschaling.
             </p>
-            <Button asLink to="/contact" size="lg" variant="primary">Vraag een Offerte Aan</Button>
-            <Link to="/portfolio" className="block mt-6 text-[#A78BFA] hover:text-[#F472B6] font-medium">
-                Of bekijk eerst ons werk →
-            </Link>
-        </section> {/* <-- HIER IS DE ONTBREKENDE TAG TOEGEVOEGD! */}
+            <Button asLink to="/contact" size="lg">Plan een intake</Button>
+          </Card>
+        </section>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IconProps } from '../types';
+import { contactChannels } from '../data/siteContent';
+import type { IconProps } from '../types';
 
 // Placeholder SVGs for social icons, replace with actual SVGs or an icon library
 const InstagramIcon: React.FC<IconProps> = ({ className }) => (
@@ -35,67 +36,63 @@ const PhoneIcon: React.FC<IconProps> = ({ className }) => (
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#0A0320] text-[#E0D9F7]/80 py-12 lg:py-16 border-t border-white/10">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Column 1: Logo & Bio */}
+    <footer className="bg-[#040012] border-t border-white/10 text-white/70">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <Link to="/" className="text-3xl font-bold gradient-text mb-4 inline-block">
-              Webbiecorn
-            </Link>
-            <p className="text-sm mb-4">
-              Webbiecorn brengt magie in jouw social media. Creativiteit ontmoet data voor betoverende resultaten.
+            <Link to="/" className="text-3xl font-bold gradient-text mb-4 inline-flex">Webbiecorn</Link>
+            <p className="text-sm leading-relaxed max-w-sm">
+              De social studio voor merken die tempo willen maken zonder de menselijke maat te verliezen. Creatie, data en community vanuit Amsterdam.
             </p>
-            <div className="flex space-x-4">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#F472B6] transition-colors"><InstagramIcon className="w-6 h-6" /></a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#F472B6] transition-colors"><LinkedInIcon className="w-6 h-6" /></a>
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#F472B6] transition-colors"><TikTokIcon className="w-6 h-6" /></a>
+            <div className="flex items-center space-x-4 mt-5 text-white/60">
+              <a href="https://instagram.com" className="hover:text-white transition-colors"><InstagramIcon className="w-6 h-6" /></a>
+              <a href="https://linkedin.com" className="hover:text-white transition-colors"><LinkedInIcon className="w-6 h-6" /></a>
+              <a href="https://tiktok.com" className="hover:text-white transition-colors"><TikTokIcon className="w-6 h-6" /></a>
             </div>
           </div>
-
-          {/* Column 2: Ontdek */}
-          <div>
-            <h5 className="text-xl font-semibold text-white mb-4">Ontdek</h5>
-            <ul className="space-y-2">
-              <li><Link to="/diensten" className="hover:text-[#F472B6] transition-colors">Diensten</Link></li>
-              <li><Link to="/case-studies" className="hover:text-[#F472B6] transition-colors">Case Studies</Link></li>
-              <li><Link to="/prijzen" className="hover:text-[#F472B6] transition-colors">Prijzen</Link></li>
-              <li><Link to="/blog" className="hover:text-[#F472B6] transition-colors">Blog</Link></li>
-              <li><Link to="/resources" className="hover:text-[#F472B6] transition-colors">Resources</Link></li>
-            </ul>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <h5 className="text-white text-sm uppercase tracking-[0.2em] mb-4">Pages</h5>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/diensten" className="hover:text-white">Diensten</Link></li>
+                <li><Link to="/portfolio" className="hover:text-white">Portfolio</Link></li>
+                <li><Link to="/case-studies" className="hover:text-white">Case Studies</Link></li>
+                <li><Link to="/prijzen" className="hover:text-white">Prijzen</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-white text-sm uppercase tracking-[0.2em] mb-4">Studio</h5>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/over-ons" className="hover:text-white">Over ons</Link></li>
+                <li><Link to="/testimonials" className="hover:text-white">Testimonials</Link></li>
+                <li><Link to="/blog" className="hover:text-white">Blog</Link></li>
+                <li><Link to="/resources" className="hover:text-white">Resources</Link></li>
+              </ul>
+            </div>
           </div>
-
-          {/* Column 3: Bedrijf */}
           <div>
-            <h5 className="text-xl font-semibold text-white mb-4">Bedrijf</h5>
-            <ul className="space-y-2">
-              <li><Link to="/over-ons" className="hover:text-[#F472B6] transition-colors">Over Ons</Link></li>
-              <li><Link to="/testimonials" className="hover:text-[#F472B6] transition-colors">Testimonials</Link></li>
-              <li><Link to="/faq" className="hover:text-[#F472B6] transition-colors">FAQ</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 4: Contact */}
-          <div>
-            <h5 className="text-xl font-semibold text-white mb-4">Contact</h5>
-            <ul className="space-y-3">
-              <li className="flex items-center space-x-2">
-                <MailIcon className="w-5 h-5 text-[#A78BFA]" />
-                <a href="mailto:info@webbiecorn.nl" className="hover:text-[#F472B6] transition-colors">info@webbiecorn.nl</a>
-              </li>
-              <li className="flex items-center space-x-2">
-                <PhoneIcon className="w-5 h-5 text-[#A78BFA]" />
-                <a href="tel:+31612345678" className="hover:text-[#F472B6] transition-colors">+31 6 1234 5678</a>
-              </li>
-               <li className="mt-2">
-                <Link to="/contact" className="hover:text-[#F472B6] transition-colors font-semibold">Neem contact op</Link>
-              </li>
+            <h5 className="text-white text-sm uppercase tracking-[0.2em] mb-4">Neem contact op</h5>
+            <ul className="space-y-4">
+              {contactChannels.map((channel) => (
+                <li key={channel.label}>
+                  <p className="text-white text-base font-semibold">{channel.label}</p>
+                  {channel.href ? (
+                    <a href={channel.href} className="text-lg text-white/90 hover:text-white block">
+                      {channel.value}
+                    </a>
+                  ) : (
+                    <p className="text-lg text-white/90">{channel.value}</p>
+                  )}
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/40 mt-1">{channel.description}</p>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
-
-        <div className="border-t border-white/10 pt-8 text-center text-sm">
-          <p>&copy; {new Date().getFullYear()} Webbiecorn. Alle rechten voorbehouden. Social Media Magie die Werkt.</p>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 py-6 border-t border-white/10 text-xs uppercase tracking-[0.3em]">
+          <span>© {new Date().getFullYear()} Webbiecorn Studio</span>
+          <span>Handgemaakt in Amsterdam</span>
+          <Link to="/contact" className="hover:text-white">Plan een call</Link>
         </div>
       </div>
     </footer>

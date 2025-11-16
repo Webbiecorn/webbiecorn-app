@@ -1,164 +1,178 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Service, PortfolioItem } from '../types';
-// We hebben de ParticleHero niet meer nodig, maar wel de afbeelding zelf
-import heroAfbeelding from '../assets/hero-afbeelding.png'; 
 import Card from '../components/Card';
-import FlipCard from '../components/FlipCard';
 import Button from '../components/Button';
-
-// Imports voor de andere afbeeldingen op de pagina
-import socialBeheerImg from '../assets/social-media-beheer.jpg';
-import advertentieImg from '../assets/advertentie-campagnes.jpg';
-import contentCreatieImg from '../assets/content-creatie.jpg';
-import zomerboostImg from '../assets/zomerboost-2025.jpg';
-import brandIdImg from '../assets/brand-identity.jpg';
-import techtalkImg from '../assets/techtalk-community.jpg';
-
-// Placeholder icons
-const MagicWandIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 gradient-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V9.75a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25v8.25A2.25 2.25 0 006 20.25zM12 12V3.75" /></svg>;
-const TargetIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 gradient-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.25c-5.52 0-10.24.88-13.48 2.25L9.63 18l5.96-3.63z" /></svg>;
-const BrushIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 gradient-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>;
-
-const services: Service[] = [
-  { id: 'beheer', title: 'Social Media Beheer', description: 'Strategisch beheer van uw kanalen voor maximale impact.', image: socialBeheerImg, icon: <MagicWandIcon /> },
-  { id: 'advertenties', title: 'Advertentie Campagnes', description: 'Doelgerichte campagnes die converteren en engageren.', image: advertentieImg, icon: <TargetIcon /> },
-  { id: 'creatie', title: 'Content Creatie', description: 'Betoverende content die uw merkverhaal vertelt.', image: contentCreatieImg, icon: <BrushIcon /> },
-];
-
-const processSteps = [
-    { id: 1, title: 'De Vonk', description: 'We duiken diep in uw merk, doelen en doelgroep om de perfecte strategie te ontsteken.', icon: '✨' },
-    { id: 2, title: 'Het Brouwsel', description: 'Creativiteit en data worden gemengd tot een krachtige social media mix op maat.', icon: '🧪' },
-    { id: 3, title: 'De Betovering', description: 'We lanceren, monitoren en optimaliseren voor magische, meetbare resultaten.', icon: '🌟' },
-];
-
-const portfolioPreview: PortfolioItem[] = [
-  { id: 'zomerboost', title: 'ZomerBoost 2025 Campagne', category: 'Advertenties', imageUrl: zomerboostImg, description: 'Een spetterende zomer campagne die de verkoop een boost gaf.' },
-  { id: 'brand-id', title: 'Nieuwe Brand Identity Lancering', category: 'Strategie', imageUrl: brandIdImg, description: 'Volledige social media strategie voor een frisse merkidentiteit.' },
-  { id: 'techtalk', title: 'TechTalk Community Groei', category: 'Beheer', imageUrl: techtalkImg, description: 'Organische groei en engagement voor een tech community.' },
-];
+import {
+  caseStudies,
+  differentiators,
+  growthSignals,
+  heroMetrics,
+  heroVisual,
+  processSteps,
+  serviceShowcase,
+  testimonials,
+  toolkit,
+} from '../data/siteContent';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="space-y-24 md:space-y-32 pb-16">
-      
-      {/* ===== NIEUWE HERO SECTIE ===== */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24">
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          {/* Linker kolom (Tekst) */}
-          <div className="md:w-1/2 text-center md:text-left">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
-              <span className="block text-[#E0D9F7]">SOCIAL MEDIA</span>
-              <span className="block gradient-text mt-1 md:mt-2">MAGIE DIE WERKT.</span>
+    <div className="space-y-24 md:space-y-32 pb-24">
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <p className="text-sm uppercase tracking-[0.3em] text-white/60">Social studio & growth squad</p>
+            <h1 className="text-4xl md:text-6xl font-semibold leading-tight text-white">
+              Social media <span className="gradient-text">zonder ruis</span> maar met meetbare impact.
             </h1>
-            <p className="mt-6 text-lg md:text-xl max-w-xl mx-auto md:mx-0 text-[#E0D9F7]/90">
-              Van strategie tot storytelling, wij maken jouw merk onweerstaanbaar. Maak van volgers fans met unicorn power.
+            <p className="text-lg text-white/70 max-w-xl">
+              Webbiecorn bouwt strategieën, content en campagnes die het tempo van online cultuur volgen. We koppelen creatie, community en performance in één team.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
-              <Button asLink to="/diensten" variant="primary" size="lg">
-                Ontdek Jouw Potentie
-              </Button>
-              <Button asLink to="/portfolio" variant="outline" size="lg">
-                Bekijk Voorbeelden
-              </Button>
+            <div className="flex flex-wrap gap-4">
+              <Button asLink to="/contact" size="lg">Plan een call</Button>
+              <Button asLink to="/case-studies" variant="outline" size="lg">Bekijk cases</Button>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {heroMetrics.map((metric) => (
+                <div key={metric.label} className="rounded-2xl border border-white/10 p-4">
+                  <p className="text-2xl font-semibold text-white">{metric.value}</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/40">{metric.label}</p>
+                  <p className="text-xs text-white/50">{metric.detail}</p>
+                </div>
+              ))}
             </div>
           </div>
-          {/* Rechter kolom (Afbeelding) */}
-          <div className="md:w-1/2">
-            <img 
-              src={heroAfbeelding} 
-              alt="Webbiecorn eenhoorn met laptop"
-              className="w-full h-auto"
-            />
+          <div className="relative">
+            <div className="absolute inset-0 blur-3xl bg-gradient-to-tr from-[#F472B6]/30 via-transparent to-[#60A5FA]/40" />
+            <img src={heroVisual} alt="Webbiecorn team" className="relative w-full h-auto" />
           </div>
         </div>
       </section>
 
-      {/* Dienstenoverzicht */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Onze Magische <span className="gradient-text">Diensten</span></h2>
-        <p className="text-lg text-center max-w-2xl mx-auto mb-12 md:mb-16 text-[#E0D9F7]/80">
-          Van dagelijks beheer tot knallende campagnes, wij hebben de toverformule voor uw social media succes.
-        </p>
-        <div className="grid md:grid-cols-3 gap-8">
-          {services.map((service) => (
-            <div key={service.id} className="h-80 md:h-96" data-aos="zoom-in" data-aos-delay={services.indexOf(service) * 100}>
-                 <FlipCard
-                    frontContent={
-                        <>
-                            {service.icon}
-                            <h3 className="text-2xl font-semibold mt-4 mb-2 text-white">{service.title}</h3>
-                            <p className="text-[#E0D9F7]/80">{service.description}</p>
-                        </>
-                    }
-                    backContent={
-                        <>
-                            <h3 className="text-2xl font-semibold mb-3 text-white">{service.title}</h3>
-                            <p className="text-sm text-[#E0D9F7]/90 mb-6">Ontdek hoe onze expertise in {service.title.toLowerCase()} uw merk kan transformeren.</p>
-                            <Button asLink to="/diensten" variant="secondary" size="sm">Meer Details</Button>
-                        </>
-                    }
-                 />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Proces Sectie */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Onze <span className="gradient-text">Toverformule</span></h2>
-        <p className="text-lg text-center max-w-2xl mx-auto mb-12 md:mb-16 text-[#E0D9F7]/80">
-          Een beproefd proces dat strategie, creativiteit en resultaten naadloos combineert.
-        </p>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
-          {processSteps.map((step, index) => (
-            <Card key={step.id} className="h-full" dataAos="fade-up" dataAosDelay={`${index * 150}`}>
-              <div className="text-5xl mb-6">{step.icon}</div>
-              <h3 className="text-2xl font-semibold mb-3 text-white">{step.title}</h3>
-              <p className="text-[#E0D9F7]/80">{step.description}</p>
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-white/60">Onze speelvelden</p>
+            <h2 className="text-3xl md:text-4xl font-semibold text-white">Van strategie tot always-on uitvoer</h2>
+          </div>
+          <Link to="/diensten" className="text-sm font-semibold text-[#A78BFA] hover:text-white">Bekijk alle diensten →</Link>
+        </header>
+        <div className="grid md:grid-cols-3 gap-6">
+          {serviceShowcase.map((service) => (
+            <Card key={service.id} className="space-y-4">
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">{service.id.replace('-', ' ')}</p>
+              <h3 className="text-2xl font-semibold text-white">{service.title}</h3>
+              <p className="text-white/70">{service.description}</p>
+              <p className="text-sm text-white/60">{service.longDescription}</p>
+              <Button asLink to="/diensten" variant="secondary" size="sm">Ontdek meer</Button>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Portfolio Sectie */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Recent <span className="gradient-text">Werk</span></h2>
-        <p className="text-lg text-center max-w-2xl mx-auto mb-12 md:mb-16 text-[#E0D9F7]/80">
-          Een glimp van de magie die we voor onze klanten hebben gecreëerd.
-        </p>
-        <div className="grid md:grid-cols-3 gap-8">
-          {portfolioPreview.map((item, index) => (
-            <Card key={item.id} className="overflow-hidden group" dataAos="zoom-in-up" dataAosDelay={`${index * 150}`}>
-              <img src={item.imageUrl} alt={item.title} className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300" />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-[#A78BFA] font-medium mb-2">{item.category}</p>
-                <p className="text-sm text-[#E0D9F7]/80 mb-4">{item.description}</p>
-                <Link to={`/portfolio#${item.id}`} className="font-semibold text-[#F472B6] hover:underline">Bekijk case →</Link>
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-10">
+          <Card className="space-y-6" dataAos="fade-up">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/50">Aanpak</p>
+            <h2 className="text-3xl font-semibold text-white">Een playbook dat we samen invullen</h2>
+            <div className="space-y-4">
+              {processSteps.map((step) => (
+                <div key={step.id} className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/70">
+                    {step.title.substring(0, 1)}
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">{step.title}</p>
+                    <p className="text-white/70 text-sm">{step.description}</p>
+                    <p className="text-white/50 text-xs mt-1">Resultaat: {step.result}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+          <Card className="space-y-6" dataAos="fade-up" dataAosDelay="150">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/50">Tooling</p>
+            <h2 className="text-3xl font-semibold text-white">Wat u meekrijgt</h2>
+            <ul className="space-y-3 text-white/80">
+              {toolkit.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-1 text-[#F472B6]">✹</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="grid sm:grid-cols-3 gap-4 pt-4">
+              {growthSignals.map((signal) => (
+                <div key={signal.label} className="border border-white/10 rounded-xl p-4">
+                  <p className="text-2xl font-semibold text-white">{signal.value}</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/40">{signal.label}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-white/60">Resultaten</p>
+            <h2 className="text-3xl font-semibold text-white">Cases uit retail, hospitality en SaaS</h2>
+          </div>
+          <Button asLink to="/case-studies" variant="outline">Alle cases</Button>
+        </header>
+        <div className="grid md:grid-cols-3 gap-6">
+          {caseStudies.slice(0, 3).map((study) => (
+            <Card key={study.id} className="overflow-hidden p-0">
+              <img src={study.imageUrl} alt={study.title} className="w-full h-48 object-cover" />
+              <div className="p-6 space-y-3">
+                <p className="text-xs uppercase tracking-[0.3em] text-white/40">{study.clientName}</p>
+                <h3 className="text-xl text-white font-semibold">{study.title}</h3>
+                <p className="text-white/70 text-sm">{study.summary}</p>
+                <Link to={`/case-studies/${study.id}`} className="text-sm font-semibold text-[#F472B6]">Lees case →</Link>
               </div>
             </Card>
           ))}
         </div>
-        <div className="text-center mt-12">
-          <Button asLink to="/portfolio" variant="primary" size="lg">
-            Ontdek Meer Projecten
-          </Button>
-        </div>
       </section>
 
-      {/* CTA Section */}
-        <section className="container mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
-            <div className="glassmorphism rounded-xl p-8 md:p-12 lg:p-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Klaar om <span className="gradient-text">Social Media Magie</span> te Ervaren?</h2>
-                <p className="text-lg max-w-xl mx-auto mb-8 text-[#E0D9F7]/90">
-                    Laten we samenwerken om uw merk online te laten schitteren. Neem vandaag nog contact op voor een vrijblijvend gesprek.
-                </p>
-                <Button asLink to="/contact" variant="primary" size="lg">
-                    Start Jouw Magische Reis
-                </Button>
-            </div>
-        </section>
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8">
+        <Card className="space-y-6" dataAos="fade-up">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/50">Waarom merken voor ons kiezen</p>
+          <ul className="space-y-4">
+            {differentiators.map((item) => (
+              <li key={item.title}>
+                <p className="text-white font-semibold">{item.title}</p>
+                <p className="text-white/70 text-sm">{item.description}</p>
+              </li>
+            ))}
+          </ul>
+        </Card>
+        <Card className="space-y-6" dataAos="fade-up" dataAosDelay="150">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/50">Wat klanten zeggen</p>
+          <div className="space-y-6">
+            {testimonials.map((testimonial) => (
+              <blockquote key={testimonial.id} className="border-l-2 border-[#F472B6] pl-4">
+                <p className="text-white text-lg">“{testimonial.quote}”</p>
+                <p className="text-sm text-white/60 mt-2">{testimonial.author} — {testimonial.company}</p>
+              </blockquote>
+            ))}
+          </div>
+        </Card>
+      </section>
+
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="border border-white/10 rounded-[32px] p-10 space-y-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/50">Klaar voor de volgende stap?</p>
+          <h2 className="text-4xl font-semibold text-white">Bouw uw eigen Webbiecorn squad</h2>
+          <p className="text-white/70 max-w-3xl mx-auto">
+            Binnen drie weken staat er een multidisciplinair team klaar met duidelijke doelen, formats en dashboards. Geen losse freelancers, maar een bewezen workflow.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Button asLink to="/contact" size="lg">Vraag een voorstel</Button>
+            <Button asLink to="/prijzen" variant="outline" size="lg">Bekijk pakketten</Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

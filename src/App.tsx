@@ -45,9 +45,11 @@ const App: React.FC = () => {
   return (
     <HashRouter>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen bg-[#0F052B] text-[#E0D9F7] font-['Poppins']">
+      <div className="relative flex flex-col min-h-screen bg-[#050015] text-[#E0D9F7] font-['Poppins']">
+        <div className="absolute inset-0 opacity-60 bg-[radial-gradient(circle_at_top,_rgba(96,165,250,0.15),_transparent_50%),radial-gradient(circle_at_bottom,_rgba(244,114,182,0.1),_transparent_40%)] pointer-events-none" />
+        <div className="absolute inset-x-0 top-24 h-72 blur-3xl bg-gradient-to-r from-[#A78BFA]/30 via-transparent to-[#60A5FA]/30 pointer-events-none" />
         <Header />
-        <main className="flex-grow pt-20 md:pt-24"> {/* Adjust pt based on header height */}
+        <main className="relative flex-grow pt-24 md:pt-28">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/diensten" element={<DienstenPage />} />

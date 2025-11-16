@@ -1,138 +1,72 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BlogPost } from '../types';
 import Card from '../components/Card';
-
-// Lunr is loaded via CDN
-declare global {
-  interface Window { lunr: any; }
-}
-
-// STAP 1: Importeer alle afbeeldingen voor de blogposts
-import socialTrendsImg from '../assets/Social-Media-Trends.jpg';
-import ugcImg from '../assets/ugc-campagne.jpg';
-import tiktokImg from '../assets/tiktok-voor-bedrijven.jpg';
-import dataAnalysisImg from '../assets/Magie-van-Data-Analyse.jpg';
-import contentCalendarImg from '../assets/Effectieve-Content-Kalender.jpg';
-import influencerMarketingImg from '../assets/Influencer_Marketing.jpg';
-
-// STAP 2: Vervang de statische links door de geïmporteerde variabelen
-const initialBlogPosts: BlogPost[] = [
-  { id: 'social-media-trends-2024', title: 'Top 5 Social Media Trends in 2024', date: '15 Augustus 2024', category: 'Trends', imageUrl: socialTrendsImg, summary: 'Ontdek de belangrijkste trends die social media marketing dit jaar vormgeven en hoe uw merk voorop kan blijven lopen.' },
-  { id: 'waarom-ugc-koning-is', title: 'Waarom User-Generated Content Koning Is', date: '01 Augustus 2024', category: 'Strategie', imageUrl: ugcImg, summary: 'Leer hoe u de kracht van authentieke content van uw gebruikers kunt benutten voor maximale impact.' },
-  { id: 'tiktok-voor-bedrijven', title: 'TikTok voor Bedrijven: Meer dan Dansjes', date: '20 Juli 2024', category: 'Platformen', imageUrl: tiktokImg, summary: 'Is TikTok geschikt voor uw bedrijf? Ontdek de mogelijkheden en best practices voor dit populaire platform.' },
-  { id: 'data-analyse-social-media', title: 'De Magie van Data-Analyse in Social Media', date: '05 Juli 2024', category: 'Data', imageUrl: dataAnalysisImg, summary: 'Hoe u data kunt gebruiken om uw social media strategie te optimaliseren en betere resultaten te behalen.' },
-  { id: 'content-kalender-maken', title: 'Een Effectieve Content Kalender Maken', date: '18 Juni 2024', category: 'Creatie', imageUrl: contentCalendarImg, summary: 'Tips en tools voor het plannen van uw social media content als een pro.' },
-  { id: 'influencer-marketing-doen', title: 'Influencer Marketing: Zo Doet U Het Goed', date: '02 Juni 2024', category: 'Strategie', imageUrl: influencerMarketingImg, summary: 'Een gids voor succesvolle samenwerkingen met influencers die passen bij uw merk.' },
-];
-
-const blogCategories = ['Alles', ...new Set(initialBlogPosts.map(post => post.category))];
+import { blogContent, blogPosts } from '../data/siteContent';
 
 const BlogPage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState('Alles');
-  const [displayedPosts, setDisplayedPosts] = useState<BlogPost[]>(initialBlogPosts);
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('Alles');
 
-  const lunrIndex = useMemo(() => {
-    if (typeof window === 'undefined' || !window.lunr || !window.lunr.nl) {
-        console.warn("Lunr.js or Dutch language pack not available.");
-        return null;
-    }
-    
-    return window.lunr(function (this: any) {
-      this.use(window.lunr.nl);
-      this.ref('id');
-      this.field('title', { boost: 10 });
-      this.field('summary');
-      this.field('category');
+  const categories = useMemo(() => ['Alles', ...new Set(blogPosts.map((post) => post.category))], []);
 
-      initialBlogPosts.forEach(post => {
-        this.add(post);
-      });
+  const filteredPosts = useMemo(() => {
+    return blogPosts.filter((post) => {
+      const matchesCategory = category === 'Alles' || post.category === category;
+      const matchesSearch = post.title.toLowerCase().includes(search.toLowerCase()) || post.summary.toLowerCase().includes(search.toLowerCase());
+      return matchesCategory && matchesSearch;
     });
-  }, []);
-
-  const filterAndSearchPosts = useCallback(() => {
-    let posts = initialBlogPosts;
-
-    if (activeCategory !== 'Alles') {
-      posts = posts.filter(post => post.category === activeCategory);
-    }
-
-    if (searchTerm.trim() !== '' && lunrIndex) {
-      try {
-        const searchResults = lunrIndex.search(searchTerm + '*');
-        const resultIds = searchResults.map((result: { ref: string }) => result.ref);
-        posts = posts.filter(post => resultIds.includes(post.id));
-      } catch (e) {
-        console.warn("Lunr search error:", e);
-      }
-    }
-    setDisplayedPosts(posts);
-  }, [searchTerm, activeCategory, lunrIndex]);
-
-  useEffect(() => {
-    filterAndSearchPosts();
-  }, [filterAndSearchPosts]);
+  }, [search, category]);
 
   return (
-    <div className="py-16 md:py-24 bg-[#0F052B]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="text-center mb-12 md:mb-16" data-aos="fade-up">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Webbiecorn's <span className="gradient-text">Blog</span></h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto text-[#E0D9F7]/80">
-            De laatste inzichten, tips en magische formules uit de wereld van social media marketing.
-          </p>
+    <div className="py-16 md:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <header className="text-center space-y-4 max-w-3xl mx-auto">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/50">Blog</p>
+          <h1 className="text-4xl md:text-5xl font-semibold text-white">{blogContent.hero.title}</h1>
+          <p className="text-white/70">{blogContent.hero.description}</p>
         </header>
 
-        <div className="mb-12 flex flex-col md:flex-row gap-4 items-center" data-aos="fade-up">
+        <div className="flex flex-col md:flex-row gap-4 items-center">
           <input
             type="text"
-            placeholder="Zoek artikelen..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full md:w-1/2 p-3 rounded-lg bg-white/10 border border-white/20 text-[#E0D9F7] placeholder-[#E0D9F7]/60 focus:ring-2 focus:ring-[#A78BFA] focus:outline-none transition-all"
+            placeholder="Zoek in artikelen"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full md:w-1/2 px-4 py-3 rounded-full bg-white/10 border border-white/10 text-white placeholder-white/50"
           />
-          <div className="flex flex-wrap justify-center md:justify-start gap-2">
-            {blogCategories.map(category => (
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map((cat) => (
               <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300
-                  ${activeCategory === category 
-                    ? 'bg-gradient-to-r from-[#F472B6] to-[#A78BFA] text-white shadow-md' 
-                    : 'bg-white/10 text-[#E0D9F7] hover:bg-white/20'}`}
+                key={cat}
+                onClick={() => setCategory(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-semibold ${cat === category ? 'bg-white text-[#050014]' : 'bg-white/10 text-white/60 hover:bg-white/20'}`}
               >
-                {category}
+                {cat}
               </button>
             ))}
           </div>
         </div>
 
-        {displayedPosts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {displayedPosts.map((post, index) => (
-              <Card key={post.id} className="overflow-hidden group flex flex-col h-full" data-aos="fade-up" data-aos-delay={`${index * 100}`}>
-                <Link to={`/blog/${post.id}`} className="block aspect-video overflow-hidden">
-                  <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300" />
-                </Link>
-                <div className="p-5 flex flex-col flex-grow">
-                  <p className="text-xs text-[#A78BFA] font-semibold mb-1">{post.category.toUpperCase()} â€¢ {post.date}</p>
-                  <h3 className="text-xl font-semibold text-white mb-2 flex-grow">
-                    <Link to={`/blog/${post.id}`} className="hover:text-[#F472B6] transition-colors">{post.title}</Link>
-                  </h3>
-                  <p className="text-sm text-[#E0D9F7]/80 mb-4 line-clamp-3">{post.summary}</p>
-                  <Link to={`/blog/${post.id}`} className="font-semibold text-[#F472B6] hover:underline self-start">
-                    Lees Meer â†’
-                  </Link>
-                </div>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-xl text-[#E0D9F7]/70 py-12">
-            Geen blogposts gevonden die voldoen aan uw criteria. Probeer uw zoekterm of filter aan te passen!
-          </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredPosts.map((post) => (
+            <Card key={post.id} className="overflow-hidden p-0 flex flex-col">
+              <Link to={`/blog/${post.id}`} className="block aspect-[4/3] overflow-hidden">
+                <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover" />
+              </Link>
+              <div className="p-6 space-y-3 flex flex-col flex-grow">
+                <p className="text-xs uppercase tracking-[0.3em] text-white/50">{post.category} · {post.date}</p>
+                <h3 className="text-xl text-white font-semibold flex-grow">
+                  <Link to={`/blog/${post.id}`} className="hover:text-[#F472B6]">{post.title}</Link>
+                </h3>
+                <p className="text-white/70 text-sm">{post.summary}</p>
+                <Link to={`/blog/${post.id}`} className="text-sm font-semibold text-[#F472B6]">Lees artikel →</Link>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        {filteredPosts.length === 0 && (
+          <p className="text-center text-white/60">Geen artikelen gevonden, probeer een andere zoekterm.</p>
         )}
       </div>
     </div>
